@@ -11,9 +11,9 @@ namespace Catalog.API.Products.GetProductByCategory
             {
                 var result = await sender.Send(new GetProductByCategoryQuery(category));
 
-                var response = result.Adapt<GetProductByCategoryResponse>();
+                var response = new GetProductByCategoryResponse(result.products);
 
-                return Results.Ok(result);
+                return Results.Ok(response);
             }).WithName("GetProductByCategory")
             //.Produces<GetProductByCategoryResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)

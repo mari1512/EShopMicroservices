@@ -13,7 +13,7 @@ namespace Catalog.API.Products.CreateProduct
             app.MapPost("/products",
                 async (CreateProductRequest request, ISender sender) =>
             {
-                var command = request.Adapt<CreateProductCommand>();
+                var command = new CreateProductCommand(request.Name, request.Category, request.Description, request.imageFile, request.Price);
 
                 var result = await sender.Send(command);
 
