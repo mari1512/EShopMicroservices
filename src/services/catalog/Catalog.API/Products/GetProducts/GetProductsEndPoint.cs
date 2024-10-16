@@ -4,16 +4,18 @@ using Mapster;
 
 namespace Catalog.API.Products.GetProducts
 {
-    // public record GetProductRequest();
+     public record GetProductRequest(int? pageNumber,int? pageSize);
     public record GetProductsResponse(IEnumerable<Product> products);
 
     public class GetProductsEndPoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/products", async (ISender sender) =>
+            app.MapGet("/products", async ([AsParameters] GetProductRequest request, ISender sender) =>
             {
-                var result = await sender.Send(new GetProductsQuery());
+                var query = new GetProductsQuery(request.pageNumber, request.pageSize);
+
+                var result = await sender.Send(query);
 
                 GetProductsResponse response = result.Adapt<GetProductsResponse>();
 
