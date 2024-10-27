@@ -4,6 +4,7 @@ using BuildingBlocks.Exceptions.Handler;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using BuildingBlocks.Messaging.MassTransit;
 
 var assembly = typeof(Program).Assembly;
 
@@ -47,6 +48,10 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 
     return handler;
 });
+
+//Adding Assynchrnonus Communication
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 builder.Services.AddCarter();
 
