@@ -1,6 +1,6 @@
 ﻿namespace Basket.API.DTOs
 {
-    public class BasketChekoutDto
+    public class BasketCheckoutDto
     {
         public string UserName { get; set; } = default!;
         public Guid CustomerId { get; set; } = default!;
